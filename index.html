@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
+
+<head>
+    <title>Tornedo Insurance</title>
+    <link rel="stylesheet" type="text/css" href="index.css">
+</head>
+
+<body onload="load1(); load2();">
+    <div class="tornado1">
+        <h1 id="intro">Tornedo Insurance Underwriting Analysis<br>
+            <span class="italic">By Arindam Chakraborty - UIUC CS 416 - Summer 2023</span>
+        </h1>
+    
+        
+        
+        <!--<img src="car.png" alt="car" width="240" height="120">-->
+        <div class="banner">
+            <table style="width:100%">
+                <tr>
+                    <td style="width:40%">
+                        <h4>
+                            Tornado insurance refers to the coverage necessary to insure against damage caused by tornadoes (See:
+                            <a href="https://www.businessinsider.com/personal-finance/what-is-tornado-insurance?IR=T" style="color: blue">Link</a>). As part of tornado insurance underwriting process we need to identify the 
+                            most tornado occured states and most affected states based on 2019 to 2021 data. Also using the narative visualization we will check where 
+                            climate heat index is correlated with total number of tornado counts statewise or not.
+                        </h4>
+                    </td>
+                    <td>
+                        <ul style="list-style-type:circle;">
+                            <li>
+                                <a href="#one" class="contents">Which states are on higher tornedo risk zone?</a>
+                            </li>
+                            <li>
+                                <a href="#two" class="contents">Which 5 states has most fatalities?</a>
+                            </li>
+                            <li>
+                                <a href="#three" class="contents">Identify top 6 states which has most injuries for last 3 years?</a>
+                            </li>
+                            <li>
+                                <a href="#four" class="contents">Do Climate Change Index of a state affect total tornedo count?</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+            
+        
+            
+        </div>
+        <br>
+        <hr>
+    </div>
+    <a href="#two" class="back" style="color: blue;">Next</a>
+    <a href="#intro" class="back" style="color: blue;">Previous</a>
+    <h2 id="one">Which states are on higher tornedo risk zone?</h2>
+    <p>Let's find out the states which are at higher tornado risk zone. From the dropdown menu explore each year. 
+        The red dotted line is a threshold by the insurance company for higher tornado risk zone.</p>
+
+
+    <div>
+        <label for="totaldropdownYear">Select Year:</label>
+        <select id="totaldropdownYear" style="width: 120px;" onchange="handleSelectChange(event)">
+            <option value="2019">2019</option>
+            <option value="2020">2020</option>
+            <option value="2021">2021</option>
+        </select>
+    </div>
+    <svg id="scene1" width=1050 height=800>
+        <text x="900" y="490">Higher Tornedo Zone</text>
+
+        <line x1="0" y1="490" x2="900" y2="490" stroke="red" stroke-dasharray="4" />
+    </svg>
+
+    <!--<svg id="scene4">
+        <text x="900" y="700">2019 Data</text>
+    </svg>
+    <svg id="scene5"></svg>
+    <svg id="scene6"></svg>-->
+
+    <hr>
+    <a href="#three" class="back" style="color: blue;">Next</a>
+    <a href="#one" class="back" style="color: blue;">Previous</a>
+    <h2 id="two">Which 5 states has most fatalities?</h2>
+    <p>Let's find out the states with higest fatalities for the last 3 years. From the dropdown menu explore each year. 
+        Hover each part of the pie chart, you can get the state and the fatality number.
+    </p>
+
+    <div>
+        <label for="dropdownYear">Select Year:</label>
+        <select id="dropdownYear" style="width: 120px;" onchange="updatePieChaer(value)">
+            <option value="2019">2019</option>
+            <option value="2020">2020</option>
+            <option value="2021">2021</option>
+        </select>
+    </div>
+
+    <div id="scene4"></div>
+
+    <p>Observations: From last 3 years of data we clearly identify that the 5 states with highest fatalities are - TN, AL, KY, MS and GA.</p>
+
+    <hr>
+    <a href="#four" class="back" style="color: blue;">Next</a>
+    <a href="#two" class="back" style="color: blue;">Previous</a>
+    <h2 id="three">Identify top 6 states which has most injuries for last 3 years?</h2>
+    <p>Let's find out the states with higest injuries for the last 3 years. Let's explore each year in the individual bubble chart. 
+       Hover each bubble, you can get the state and the injury number.
+    </p>
+    
+    <svg id="scene5" width="500" height="300"></svg>
+    <svg id="scene6" width="500" height="300"></svg>
+    <svg id="scene7" width="500" height="300"></svg>
+
+    <p>Observations: From last 3 years of data we clearly identify that the 6 states with highest injuries are - 
+        TN, AL, OH, KY, MS, SC.</p>
+
+
+    <br><br><br><br>
+    <hr>
+    
+    <a href="#five" class="back" style="color: blue;">Next</a>
+    <a href="#three" class="back" style="color: blue;">Previous</a>
+    <a href="#intro" class="back" style="color: blue;">Back to Top</a>
+
+    <h2 id="four">Do Climate Change Index of a state affect total tornedo count?</h2>
+    <p>Hover over each Climate Change Index category in the legend to better understand the trend. Additionally, hovering over each
+        data point itself will indicate the state and the total tornado count would be visiable in the tooltip. 
+        Also by changing the dropdown, we can explore 3 year's of data.
+    </p>
+
+    <div>
+        <label for="dropdownYearClimate">Select Year:</label>
+        <select id="dropdownYearClimate" style="width: 120px;" onchange="updateClimateIndex(event)">
+            <option value="2019">2019</option>
+            <option value="2020">2020</option>
+            <option value="2021">2021</option>
+        </select>
+    </div>
+
+    <svg id="scene2" width=1050 height=350></svg>
+
+    <h2 id="observation">Overall Observation</h2>
+    <p> Based on the last tree years of data, we can observe TX, OK, MS, KS, LA, AL, MO, IL, SC, GA,
+        MN, FL, IA, TN, OK and MN are at high risk tornado zone. Among them TX, MS, AL, IL, OK and MN
+        are at very high risk. AL, TN, KY, MS and GA has most of the fatalities related to tornadoes.
+        From last 3 years of data we clearly identify that the 6 states with highest injuries are - TN, 
+        AL, OH, KY, MS, SC. Among them TN has the most injuries. Also we identified that Climate Change 
+        Index are largely correlated with total tornado for a state. The State govornment should focous
+        on the Climate Change Index.
+    </p>
+
+    <!-- Script -->
+    <script src="tornado.js"></script>
+
+    <hr>
+    <a href="#intro" class="back" style="color: blue;">Back to Top</a>
+    <h2 id="five">About this Visualization</h2>
+
+    <p>
+        
+        I have created this narrative visualization for the CS 416 Data Visualization course. This visualization has been 
+        constructed using slideshow narrative visualization technique, also tried to incorporate hybrid elements of the 
+        drill-down technique. This is top to buttom slidshow. Each slide define the guidance on how to interact with 
+        the visualization. User can use Next and Previous like to go back and forth. Also I have used links to go to
+        specific slide. The visual consistency has been maintaining uniform elements throughout, introducing a mixture 
+        of text, image and chart elements, different colors.
+        
+    </p>
+
+    <table style="width:100%">
+        <tr>
+            <td>
+                <h3>Scenes</h3>
+                <p>
+                    The scenes themselves are constructed via HTML id tags. Each scene has a unique id that is linked via the buttons.The “Next/Previous”
+                    buttons allow users to navigate from scene to scene independently, but the structure helps guide the overall narrative.
+                    Each scene is composed of a unique chart that highlights its own distinct message.
+                </p>
+                <h3>Annotations</h3>
+                <p>
+                    Annotations remain consistent on the charts, even throughout changes triggered by the interactions. This allows the user
+                    to have some grounding on the overall message the visualization is trying to communicate. For example, the annotation
+                    in chart 1, you can find Higher Tornado Risk States for individual years in red. If user change the year the respective
+                    message would be changed. This can help a user better understand which car makes consistently have good mileage across both parameters.
+                </p>
+            </td>
+            <td>
+                <h3>Parameters</h3>
+                <p>
+                    The visualizations have a handful of relevant parameters that help the user better explore the data. Chart 1, 2 
+                    and 4 has the dropdown to change the yesrs.
+                </p>
+                <h3>Triggers</h3>
+                <p>
+                    The triggers are implemented via events and callbacks, such as “mouseover”, “mouseout” and “onchange”. When specific html elements
+                    experience these events, the callback function is invoked, and we can change the visualization with respect to the
+                    action indicated by the trigger. The example triggers we have here are the buttons and hovering legend.
+                </p>
+            </td>
+        </tr>
+    </table>
+    
+    <hr>
+
+    <p>
+        <a href="#five" class="back" style="color: blue;">Previous</a>
+        <a href="#intro" class="back" style="color: blue;">Back to Top</a>
+
+        <h2>Additional Information</h2>
+        <p>Listed here are the various sources I used for learning about D3. Elements of this visualization are drawn from the
+            examples cited below.
+        </p>
+        <ul>
+            <li>
+                <a href="https://csarkar1983.github.io/testrepo/data/US_TORNADO_2021.csv" style="color: blue;">Data Source</a>
+            </li>
+            <li>
+                <a href="https://www.d3-graph-gallery.com/graph/bubble_tooltip.html" style="color: blue;">Tooltips</a>
+            </li>
+            <li>
+                <a href="https://observablehq.com/@d3/d3-scaleordinal" style="color: blue;">ScaleOrdinal</a>
+            </li>
+            <li>
+                <a href="https://www.d3-graph-gallery.com/graph/bubble_template.html" style="color: blue;">Opacity change on hover</a>
+            </li>
+        </ul>
+    </p>
+</body>
+
+</html>
